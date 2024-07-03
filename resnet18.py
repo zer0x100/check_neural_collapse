@@ -119,19 +119,16 @@ for epoch in range(1, num_epochs+1):
                 class_counts[class_index] += 1
     test_loss, test_accuracy = loss_sum/input_count, 100*correct_sum/input_count
 
-    #save the model if it it better than before
+    #save the model if it is better than before
     if len(test_losses) > 1 and test_loss < min(test_losses):
         torch.save(model.state_dict(), f'{OUTNAME}_best_loss.tar')
-    if len(test_accuracies) > 1 and test_accuracy < min(test_accuracies):
+    if len(test_accuracies) > 1 and test_accuracy > max(test_accuracies):
         torch.save(model.state_dict(), f'{OUTNAME}_best_accuracy.tar')
     
     test_losses.append(test_loss)
     test_accuracies.append(test_accuracy)
     class_ftrs_mean = class_ftrs_sum / class_counts.unsqueeze(1)
     test_class_ftrs_mean.append(class_ftrs_mean.cpu().detach().numpy())
-    
-    test_losses.append(test_loss)
-    test_accuracies.append(test_accuracy)
 
 torch.save(model.state_dict(), f'{OUTNAME}.tar')
 

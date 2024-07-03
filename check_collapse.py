@@ -2,8 +2,10 @@
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
-path = "./trained_2/OUT_results.npz"
+dir = "./trained_2"
+path = os.path.join(dir, "OUT_results.npz")
 data = np.load(path)
 
 #parameters
@@ -32,8 +34,8 @@ plt.title("Std_c(|mu_c - mu_G|)/Avg_c(|mu_c - mu_G)")
 plt.xlabel('Epochs')
 plt.ylabel('Value')
 plt.legend()
+plt.savefig(os.path.join(dir, 'check_equinorm.png'))
 plt.show()
-plt.savefig('check_equinorm.png')
 
 #Check class-means approach equiangularity
 #Check class-means approach maximal-angle equiangularitys
@@ -66,8 +68,8 @@ plt.title("Std_b_c cos(b, c)")
 plt.xlabel('Epochs')
 plt.ylabel('Value')
 plt.legend()
+plt.savefig(os.path.join(dir, 'check_equiang.png'))
 plt.show()
-plt.savefig('check_equiang.png')
 
 plt.plot(train_cos_c, label='train')
 plt.plot(test_cos_c, label='test')
@@ -75,5 +77,5 @@ plt.title("Avg_b_c|cos(b, c) + 1/(nclass-1)|")
 plt.xlabel('Epochs')
 plt.ylabel('Value')
 plt.legend()
+plt.savefig(os.path.join(dir, 'check_max_ang_equi.png'))
 plt.show()
-plt.savefig('check_max_ang_equi.png')
